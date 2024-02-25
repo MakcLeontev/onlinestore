@@ -14,21 +14,14 @@ import java.util.Optional;
 @Slf4j
 @Service
 public class ProductService {
-    private ProductRepository productRepository;
-    private CategoryService categoryService;
+    private final ProductRepository productRepository;
 
-    public ProductService(ProductRepository productRepository, CategoryService categoryService) {
+    public ProductService(ProductRepository productRepository) {
         this.productRepository = productRepository;
-        this.categoryService = categoryService;
     }
 
     public Product saveProduct(Product product) throws IllegalAccessException {
         productRepository.save(product);
-        Long id = product.getCategory().getId();
-        Category category = categoryService.getCategoryById(id);
-        List<Product> products = category.getProducts();
-        products.add(product);
-        category.setProducts(products);
         log.info(product + " товар сохранен");
         return product;
     }

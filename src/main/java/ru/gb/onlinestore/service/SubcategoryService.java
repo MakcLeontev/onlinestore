@@ -3,8 +3,8 @@ package ru.gb.onlinestore.service;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import ru.gb.onlinestore.model.Category;
-import ru.gb.onlinestore.model.Product;
-import ru.gb.onlinestore.repository.CategoryRepository;
+import ru.gb.onlinestore.model.Subcategory;
+import ru.gb.onlinestore.repository.SubcategoryRepository;
 
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -12,25 +12,24 @@ import java.util.Optional;
 
 @Slf4j
 @Service
-public class CategoryService {
-    private final CategoryRepository categoryRepository;
-
-    public CategoryService(CategoryRepository categoryRepository) {
-        this.categoryRepository = categoryRepository;
+public class SubcategoryService {
+    private final SubcategoryRepository subcategoryRepository;
+    public SubcategoryService(SubcategoryRepository subcategoryRepository) {
+        this.subcategoryRepository = subcategoryRepository;
     }
 
-    public Category saveCategory(String categoryName) throws IllegalAccessException {
-        if (categoryRepository.findByTitle(categoryName).isEmpty()){
-            Category category = new Category(categoryName);
-            categoryRepository.save(category);
+    public Subcategory saveCategory(String subCategoryName) throws IllegalAccessException {
+        if (subcategoryRepository.findByTitle(subCategoryName).isEmpty()){
+            Subcategory subcategory = new Subcategory(subCategoryName);
+            subcategoryRepository.save(subcategory);
             log.info("Категория сохранена");
-            return category;
+            return subcategory;
         }else {
             throw new IllegalAccessException("категория с таким именем уже существует");
         }
     }
-    public List<Category> findAllCategories(){
-        List<Category> categoryList = categoryRepository.findAll().stream().toList();
+    public List<Subcategory> findAllCategories(){
+        List<Subcategory> categoryList = subcategoryRepository.findAll().stream().toList();
         if (categoryList.isEmpty()){
             throw new NoSuchElementException("категории не найдены");
         } else {
@@ -39,20 +38,19 @@ public class CategoryService {
         }
     }
     public void deleteCategoryById(Long id) throws IllegalAccessException {
-        Optional<Category> category = categoryRepository.findById(id);
+        Optional<Subcategory> category = subcategoryRepository.findById(id);
         if (category.isEmpty()){
             throw new IllegalAccessException("категория с таким id не существует");
         }
-        categoryRepository.delete(category.get());
+        subcategoryRepository.delete(category.get());
         log.info("Категория удалена");
     }
 
-    public Category getCategoryById(Long id) throws IllegalAccessException {
-        Optional<Category> category = categoryRepository.findById(id);
+    public Subcategory getCategoryById(Long id) throws IllegalAccessException {
+        Optional<Subcategory> category = subcategoryRepository.findById(id);
         if (category.isEmpty()){
             throw new IllegalAccessException("категория с таким id не существует");
         }
         return category.get();
     }
-
 }

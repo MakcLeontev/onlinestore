@@ -31,7 +31,7 @@ public class CategoryController {
     public ResponseEntity<Category> saveCategory(@RequestBody Category category){
         Category category1 = null;
        try {
-           category1 = categoryService.saveCategory(category.getName());
+           category1 = categoryService.saveCategory(category.getTitle());
        } catch (IllegalAccessException e) {
            ResponseEntity.badRequest().build();
        }
@@ -45,9 +45,5 @@ public class CategoryController {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.noContent().build();
-    }
-    @GetMapping("/product/{id}")
-    public ResponseEntity<List<Product>> getProduct(@PathVariable Long id){
-        return ResponseEntity.status(HttpStatus.OK).body(categoryService.getProducts(id));
     }
 }

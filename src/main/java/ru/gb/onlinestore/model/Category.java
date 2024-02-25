@@ -15,35 +15,48 @@ public class Category {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = "category_id")
     private Long id;
 
-    @Column(name = "name")
-    private String name;
+    @Column(name = "category_title")
+    private String title;
 
     @OneToMany
-    private List<Product> products;
+    private List<Subcategory> subcategories;
 
-    public Category(Long id, String name) {
+    @Column(name = "category_description")
+    private String description;
+
+    @Column(name = "category_show")
+    private Boolean categoryShow;
+
+    @Column(name = "seo_description")
+    private String seoDescription;
+//    @Column(name = "seo_keywords")
+//    private List<String> seoKeywords;
+
+    public Category(Long id, String title) {
         this.id = id;
-        this.name = name;
+        this.title = title;
     }
 
-    public Category(String name) {
-        this.name = name;
+    public Category(String title) {
+        this.title = title;
     }
 
     @JsonIgnore
-    public List<Product> getProducts(){
-        return products;
+    public List<Subcategory> getSubcategories() {
+        return subcategories;
     }
+
+
+
 
     @Override
     public String toString() {
         return "Category{" +
                 "id=" + id +
-                ", name='" + name + '\'' +
-                ", products=" + products +
+                ", title='" + title + '\'' +
                 '}';
     }
 }

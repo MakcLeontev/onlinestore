@@ -5,8 +5,11 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "products")
@@ -18,7 +21,7 @@ public class Product {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = "product_id")
     @Schema(name = "id")
     private Long id;
 
@@ -29,7 +32,24 @@ public class Product {
     private BigDecimal price;
 
     @ManyToOne
-    @JoinColumn(name = "category_id")
-    private Category category;
+    @JoinColumn(name = "subcategory_id")
+    private Subcategory subcategory;
+
+    @Column(name = "creation_date_time")
+    private LocalDateTime creationDateTime;
+
+    @Column(name = "product_show")
+    private Boolean productShow;
+
+    @Column(name = "in_stock")
+    private Long inStock;
+
+//    @Column(name = "manufacturer_id")
+    @ManyToOne
+    @JoinColumn(name = "manufacturer_id")
+    private Manufacturer manufacturer;
+
+//    @Column(name = "seo_metatags")
+//    private List<String> seoMetatags;
 
 }

@@ -3,6 +3,7 @@ package ru.gb.onlinestore.service;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import ru.gb.onlinestore.model.Category;
+import ru.gb.onlinestore.model.Product;
 import ru.gb.onlinestore.repository.CategoryRepository;
 
 import java.util.List;
@@ -12,14 +13,14 @@ import java.util.Optional;
 @Slf4j
 @Service
 public class CategoryService {
-    CategoryRepository categoryRepository;
+    private CategoryRepository categoryRepository;
 
     public CategoryService(CategoryRepository categoryRepository) {
         this.categoryRepository = categoryRepository;
     }
 
     public Category saveCategory(String categoryName) throws IllegalAccessException {
-        if (categoryRepository.findByName(categoryName).equals(Optional.empty())){
+        if (categoryRepository.findByName(categoryName).isEmpty()){
             Category category = new Category(categoryName);
             categoryRepository.save(category);
             log.info("Категория сохранена");
@@ -30,20 +31,32 @@ public class CategoryService {
     }
     public List<Category> findAllCategories(){
         List<Category> categoryList = categoryRepository.findAll().stream().toList();
-        if (categoryList != null){
+        if (categoryList.isEmpty()){
+            throw new NoSuchElementException("категории не найдены");
+        } else {
             log.info("список категорий: " + categoryList);
             return categoryList;
-        } else {
-            throw new NoSuchElementException("категории не найдены");
         }
     }
     public void deleteCategoryById(Long id) throws IllegalAccessException {
-        if (categoryRepository.findById(id) == null){
+        Optional<Category> category = categoryRepository.findById(id);
+        if (category.isEmpty()){
             throw new IllegalAccessException("категория с таким id не существует");
         }
-        Category category = categoryRepository.findById(id).get();
-        categoryRepository.delete(category);
+        categoryRepository.delete(category.get());
         log.info("Категория удалена");
+    }
+    public List<Product> getProducts(Long id){
+        Category category = categoryRepository.findById(id).get();
+        List<Product> products = category.getProducts();
+        return products;
+    }
+    public Category getCategoryById(Long id) throws IllegalAccessException {
+        Optional<Category> category = categoryRepository.findById(id);
+        if (category.isEmpty()){
+            throw new IllegalAccessException("категория с таким id не существует");
+        }
+        return category.get();
     }
 
 }

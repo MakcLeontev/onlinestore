@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.gb.onlinestore.model.Category;
+import ru.gb.onlinestore.model.Product;
 import ru.gb.onlinestore.service.CategoryService;
 
 import java.util.List;
@@ -16,13 +17,13 @@ public class CategoryController {
     @Autowired
     CategoryService categoryService;
 
-    @GetMapping
+    @GetMapping("/all")
     public ResponseEntity<List<Category>> findAll(){
         List<Category> categoryList = null;
         try {
             categoryList = categoryService.findAllCategories();
         } catch (NoSuchElementException e){
-            ResponseEntity.notFound().build();
+            return ResponseEntity.notFound().build();
         }
         return ResponseEntity.status(HttpStatus.OK).body(categoryList);
     }
@@ -37,12 +38,16 @@ public class CategoryController {
        return ResponseEntity.status(HttpStatus.CREATED).body(category1);
     }
     @DeleteMapping("/{id}")
-    public HttpStatus deleteCategory(@PathVariable Long id){
+    public ResponseEntity deleteCategory(@PathVariable Long id){
         try {
             categoryService.deleteCategoryById(id);
         } catch (IllegalAccessException e) {
-            return HttpStatus.NOT_FOUND;
+            return ResponseEntity.notFound().build();
         }
-        return HttpStatus.NO_CONTENT;
+        return ResponseEntity.noContent().build();
+    }
+    @GetMapping("/product/{id}")
+    public ResponseEntity<List<Product>> getProduct(@PathVariable Long id){
+        return ResponseEntity.status(HttpStatus.OK).body(categoryService.getProducts(id));
     }
 }

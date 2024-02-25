@@ -3,6 +3,7 @@ package ru.gb.onlinestore.service;
 import lombok.extern.log4j.Log4j2;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import ru.gb.onlinestore.model.Category;
 import ru.gb.onlinestore.model.Product;
 import ru.gb.onlinestore.repository.ProductRepository;
 
@@ -13,21 +14,27 @@ import java.util.Optional;
 @Slf4j
 @Service
 public class ProductService {
-    ProductRepository productRepository;
+    private ProductRepository productRepository;
+    private CategoryService categoryService;
 
-    public ProductService(ProductRepository productRepository) {
+    public ProductService(ProductRepository productRepository, CategoryService categoryService) {
         this.productRepository = productRepository;
+        this.categoryService = categoryService;
     }
 
-    public Product saveProduct(Product product){
+    public Product saveProduct(Product product) throws IllegalAccessException {
         productRepository.save(product);
+        Long id = product.getCategory().getId();
+        Category category = categoryService.getCategoryById(id);
+        List<Product> products = category.getProducts();
+        products.add(product);
+        category.setProducts(products);
         log.info(product + " товар сохранен");
         return product;
     }
 
     public void deleteProduct(Long id){
-        Product product = productRepository.findById(id).get();
-        if (product!=null){
+        if (productRepository.findById(id).isPresent()){
             productRepository.deleteById(id);
         } else {
             throw new NoSuchElementException("Не найден товар с id: " + id);
@@ -35,8 +42,8 @@ public class ProductService {
         log.info("товар удален, id = " + id);
     }
     public Product updateProduct(Long id, Product product){
-        Product productForUpdate = productRepository.findById(id).get();
-        if (productForUpdate!=null){
+        Product productForUpdate = null;
+        if (productRepository.findById(id).isPresent()){
             productForUpdate = product;
             productForUpdate.setId(id);
             productRepository.save(productForUpdate);
@@ -47,19 +54,19 @@ public class ProductService {
         }
     }
     public Product findById(Long id){
-        Product product = productRepository.findById(id).get();
-        if (product!=null){
-            return product;
+        Optional<Product> product = productRepository.findById(id);
+        if (product.isPresent()){
+            return product.get();
         } else {
             throw new NoSuchElementException("Не найден товар с id: " + id);
         }
     }
     public List<Product> findAll(){
         List<Product> products = productRepository.findAll();
-        if (products!= null){
-            return products;
-        } else {
+        if (products.isEmpty()){
             throw new NoSuchElementException("товары не найдены");
+        } else {
+            return products;
         }
     }
 }

@@ -32,27 +32,32 @@ public class ProductController {
         try {
             products = productService.findAll();
         } catch (NoSuchElementException e){
-            ResponseEntity.notFound().build();
+            return ResponseEntity.notFound().build();
         }
         return ResponseEntity.status(HttpStatus.OK).body(products);
     }
     @PostMapping
     public ResponseEntity<Product> saveProduct(@RequestBody Product product){
-        Product saveProduct = productService.saveProduct(product);
+        Product saveProduct = null;
+        try {
+            saveProduct = productService.saveProduct(product);
+        } catch (IllegalAccessException e) {
+            return ResponseEntity.notFound().build();
+        }
         return ResponseEntity.status(HttpStatus.CREATED).body(saveProduct);
     }
 //    @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/{id}")
-    public HttpStatus deleteProduct(@PathVariable Long id){
+    public ResponseEntity deleteProduct(@PathVariable Long id){
         try {
             productService.deleteProduct(id);
         } catch (NoSuchElementException e){
-            return HttpStatus.NOT_FOUND;
+            return ResponseEntity.notFound().build();
         }
-        return HttpStatus.NO_CONTENT;
+        return ResponseEntity.noContent().build();
     }
     @PutMapping("/{id}")
-    public ResponseEntity<Product> updateProduct(@RequestBody Long id, Product product){
+    public ResponseEntity<Product> updateProduct(@PathVariable Long id, @RequestBody Product product){
         Product product1 = null;
         try {
             product1 = productService.updateProduct(id,product);

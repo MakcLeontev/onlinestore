@@ -33,7 +33,7 @@ public class CategoryController {
        try {
            category1 = categoryService.saveCategory(category.getTitle());
        } catch (IllegalAccessException e) {
-           ResponseEntity.badRequest().build();
+           return ResponseEntity.badRequest().build();
        }
        return ResponseEntity.status(HttpStatus.CREATED).body(category1);
     }

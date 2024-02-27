@@ -19,10 +19,11 @@ public class OrderProductsService {
         this.orderProductsRepository = orderProductsRepository;
     }
 
-    public OrderProducts saveCategory()  {
+    public OrderProducts saveOrderProducts()  {
+       // orderProductsRepository.save();
        return null;
     }
-    public List<OrderProducts> findAllCategories(){
+    public List<OrderProducts> findAllOrderProducts(){
         List<OrderProducts> orderProducts = orderProductsRepository.findAll().stream().toList();
         if (orderProducts.isEmpty()){
             throw new NoSuchElementException("не найдены");
@@ -39,7 +40,7 @@ public class OrderProductsService {
         log.info("заказ удален");
     }
 
-    public OrderProducts getCategoryById(Long id) throws IllegalAccessException {
+    public OrderProducts getOrderProductsById(Long id) throws IllegalAccessException {
         Optional<OrderProducts> orderProducts = orderProductsRepository.findById(id);
         if (orderProducts.isEmpty()){
             throw new IllegalAccessException("заказа с таким id не существует");

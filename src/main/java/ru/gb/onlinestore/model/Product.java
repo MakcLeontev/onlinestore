@@ -1,5 +1,6 @@
 package ru.gb.onlinestore.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -49,7 +50,31 @@ public class Product {
     @JoinColumn(name = "manufacturer_id")
     private Manufacturer manufacturer;
 
-//    @Column(name = "seo_metatags")
+    @OneToMany(cascade = CascadeType.ALL)
+    List<ProductPhoto> productPhotos;
+
+    public Product(String title) {
+        this.title = title;
+        this.creationDateTime = LocalDateTime.now();
+        this.productShow = true;
+    }
+
+    public Product(String title, BigDecimal price, Subcategory subcategory, Long inStock, Manufacturer manufacturer) {
+        this.title = title;
+        this.price = price;
+        this.subcategory = subcategory;
+        this.creationDateTime = LocalDateTime.now();
+        this.productShow = true;
+        this.inStock = inStock;
+        this.manufacturer = manufacturer;
+    }
+
+    @JsonIgnore
+    public List<ProductPhoto> getProductPhotos() {
+        return productPhotos;
+    }
+
+    //    @Column(name = "seo_metatags")
 //    private List<String> seoMetatags;
 
 }

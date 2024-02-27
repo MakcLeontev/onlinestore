@@ -30,8 +30,18 @@ public class ManufacturerService {
     public Manufacturer getManufacturerById(Long id) throws IllegalAccessException {
         Optional<Manufacturer> manufacturer = manufacturerRepository.findById(id);
         if (manufacturer.isEmpty()){
-            throw new IllegalAccessException("категория с таким id не существует");
+            throw new IllegalAccessException("производителя с таким id не существует");
         }
         return manufacturer.get();
+    }
+
+    public void deleteManufacturerById(Long id) throws IllegalAccessException {
+        Optional<Manufacturer> manufacturer = manufacturerRepository.findById(id);
+        if (manufacturer.isEmpty()){
+            throw new IllegalAccessException("производителя с таким id не существует");
+        }else {
+            manufacturerRepository.deleteById(id);
+        }
+
     }
 }

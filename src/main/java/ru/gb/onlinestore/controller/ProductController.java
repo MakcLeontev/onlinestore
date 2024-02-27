@@ -39,11 +39,7 @@ public class ProductController {
     @PostMapping
     public ResponseEntity<Product> saveProduct(@RequestBody Product product){
         Product saveProduct = null;
-        try {
-            saveProduct = productService.saveProduct(product);
-        } catch (IllegalAccessException e) {
-            return ResponseEntity.notFound().build();
-        }
+        saveProduct = productService.saveProduct(product);
         return ResponseEntity.status(HttpStatus.CREATED).body(saveProduct);
     }
 //    @ResponseStatus(HttpStatus.NO_CONTENT)
@@ -64,7 +60,7 @@ public class ProductController {
         } catch (NoSuchElementException e){
             return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.status(HttpStatus.OK).body(product1);
+        return ResponseEntity.status(HttpStatus.CREATED).body(product1);
     }
 
 }

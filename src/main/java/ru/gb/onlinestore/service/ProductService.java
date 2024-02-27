@@ -20,13 +20,13 @@ public class ProductService {
         this.productRepository = productRepository;
     }
 
-    public Product saveProduct(Product product) throws IllegalAccessException {
+    public Product saveProduct(Product product){
         productRepository.save(product);
         log.info(product + " товар сохранен");
         return product;
     }
 
-    public void deleteProduct(Long id){
+    public void deleteProduct(Long id) throws NoSuchElementException{
         if (productRepository.findById(id).isPresent()){
             productRepository.deleteById(id);
         } else {
@@ -34,7 +34,7 @@ public class ProductService {
         }
         log.info("товар удален, id = " + id);
     }
-    public Product updateProduct(Long id, Product product){
+    public Product updateProduct(Long id, Product product) throws NoSuchElementException{
         Product productForUpdate = null;
         if (productRepository.findById(id).isPresent()){
             productForUpdate = product;
@@ -46,7 +46,7 @@ public class ProductService {
             throw new NoSuchElementException("Не найден товар с id: " + id);
         }
     }
-    public Product findById(Long id){
+    public Product findById(Long id) throws NoSuchElementException{
         Optional<Product> product = productRepository.findById(id);
         if (product.isPresent()){
             return product.get();
@@ -54,7 +54,7 @@ public class ProductService {
             throw new NoSuchElementException("Не найден товар с id: " + id);
         }
     }
-    public List<Product> findAll(){
+    public List<Product> findAll() throws NoSuchElementException{
         List<Product> products = productRepository.findAll();
         if (products.isEmpty()){
             throw new NoSuchElementException("товары не найдены");

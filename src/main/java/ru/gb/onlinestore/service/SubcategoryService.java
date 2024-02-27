@@ -18,17 +18,17 @@ public class SubcategoryService {
         this.subcategoryRepository = subcategoryRepository;
     }
 
-    public Subcategory saveCategory(String subCategoryName) throws IllegalAccessException {
+    public Subcategory saveSubcategory(String subCategoryName) throws IllegalArgumentException {
         if (subcategoryRepository.findByTitle(subCategoryName).isEmpty()){
             Subcategory subcategory = new Subcategory(subCategoryName);
             subcategoryRepository.save(subcategory);
             log.info("Категория сохранена");
             return subcategory;
         }else {
-            throw new IllegalAccessException("категория с таким именем уже существует");
+            throw new IllegalArgumentException("категория с таким именем уже существует");
         }
     }
-    public List<Subcategory> findAllCategories(){
+    public List<Subcategory> findAllSubcategorys(){
         List<Subcategory> categoryList = subcategoryRepository.findAll().stream().toList();
         if (categoryList.isEmpty()){
             throw new NoSuchElementException("категории не найдены");
@@ -37,7 +37,7 @@ public class SubcategoryService {
             return categoryList;
         }
     }
-    public void deleteCategoryById(Long id) throws IllegalAccessException {
+    public void deleteSubcategoryById(Long id) throws IllegalAccessException {
         Optional<Subcategory> category = subcategoryRepository.findById(id);
         if (category.isEmpty()){
             throw new IllegalAccessException("категория с таким id не существует");
@@ -46,7 +46,7 @@ public class SubcategoryService {
         log.info("Категория удалена");
     }
 
-    public Subcategory getCategoryById(Long id) throws IllegalAccessException {
+    public Subcategory getSubcategoryById(Long id) throws IllegalAccessException {
         Optional<Subcategory> category = subcategoryRepository.findById(id);
         if (category.isEmpty()){
             throw new IllegalAccessException("категория с таким id не существует");

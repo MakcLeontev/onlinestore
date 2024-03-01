@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import ru.gb.onlinestore.model.Product;
 import ru.gb.onlinestore.service.ProductService;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -38,6 +39,7 @@ public class ProductController {
     }
     @PostMapping
     public ResponseEntity<Product> saveProduct(@RequestBody Product product){
+        product.setCreationDateTime(LocalDateTime.now());
         Product saveProduct = null;
         saveProduct = productService.saveProduct(product);
         return ResponseEntity.status(HttpStatus.CREATED).body(saveProduct);

@@ -49,8 +49,8 @@ public class Subcategory{
         return products;
     }
 
-    public Subcategory(Long id, String title) {
-        this.id = id;
+    public Subcategory(String title, Category category) {
+        this.category = category;
         this.title = title;
     }
 

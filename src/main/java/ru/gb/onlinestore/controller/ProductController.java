@@ -10,7 +10,7 @@ import ru.gb.onlinestore.service.ProductService;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.NoSuchElementException;
-
+@CrossOrigin
 @RestController
 @RequestMapping("/product")
 public class ProductController {

@@ -17,8 +17,10 @@ public class ProductPhoto {
     @Column(name = "photo_id")
     @Schema(name = "id")
     private Long id;
-    @ManyToOne
-    @JoinColumn(name = "product_id")
+    @ManyToOne()
+//    @JoinTable(name = "product_photos",
+//            joinColumns = @JoinColumn(name = "product_id"),
+//            inverseJoinColumns = @JoinColumn(name = "photo_id"))
     Product product;
     @Column(name = "photo_link")
     String photoLink;

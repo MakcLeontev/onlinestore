@@ -20,7 +20,7 @@ public class Manufacturer {
     @Column(name = "manufacturer_title")
     private String title;
 
-    @OneToMany
+    @OneToMany(mappedBy = "manufacturer")
     private List<Product> products;
 
     @JsonIgnore

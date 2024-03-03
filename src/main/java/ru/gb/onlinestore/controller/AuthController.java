@@ -71,8 +71,8 @@ public class AuthController {
 
     @PostMapping("/signup")
     public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
-//        roleRepository.save(role);
-//        roleRepository.save(role2);
+        roleRepository.save(role);
+        roleRepository.save(role2);
         if (userRepository.existsByUsername(signUpRequest.getUsername())) {
             return ResponseEntity
                     .badRequest()

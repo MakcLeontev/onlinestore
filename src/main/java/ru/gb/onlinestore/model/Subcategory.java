@@ -24,10 +24,13 @@ public class Subcategory{
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "category_id")
+    @JoinTable(name = "categorys_subcategories",
+            joinColumns = @JoinColumn(name = "category_id"),
+            inverseJoinColumns = @JoinColumn(name = "subcategory_id"))
     private Category category;
 
-    @OneToMany
+    @OneToMany(mappedBy = "subcategory")
+   // @JoinColumn(name = "product_id")
     private List<Product> products;
 
     @Column(name = "subcategory_title")

@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Entity
 @Data
 @Table(name = "OrderProducts")
@@ -13,9 +15,14 @@ public class OrderProducts {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "record_id")
     private Long id;
+
     @OneToOne
     @JoinColumn(name = "product_id")
     private Product product;
+
     @Column(name = "product_quantity")
     private Long productQuantity;
+
+    @ManyToMany(mappedBy = "orderProducts")
+    private List<Order> orders;
 }

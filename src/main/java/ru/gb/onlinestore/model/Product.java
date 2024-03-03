@@ -32,8 +32,10 @@ public class Product {
     @Column(name = "price")
     private BigDecimal price;
 
-    @ManyToOne
-    @JoinColumn(name = "subcategory_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinTable(name = "product_subcategories",
+            joinColumns = @JoinColumn(name = "product_id"),
+            inverseJoinColumns = @JoinColumn(name = "subcategory_id"))
     private Subcategory subcategory;
 
     @Column(name = "creation_date_time")
@@ -46,11 +48,11 @@ public class Product {
     private Long inStock;
 
 //    @Column(name = "manufacturer_id")
-    @ManyToOne
-    @JoinColumn(name = "manufacturer_id")
+    @ManyToOne()
+//    @JoinColumn(name = "manufacturer_id")
     private Manufacturer manufacturer;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "product")
     List<ProductPhoto> productPhotos;
 
     public Product(String title) {
@@ -59,7 +61,7 @@ public class Product {
         this.productShow = true;
     }
 
-    public Product(String title, BigDecimal price, Subcategory subcategory, Long inStock, Manufacturer manufacturer) {
+    public Product(String title, BigDecimal price,Subcategory subcategory, Long inStock, Manufacturer manufacturer) {
         this.title = title;
         this.price = price;
         this.subcategory = subcategory;

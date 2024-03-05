@@ -3,9 +3,13 @@ package ru.gb.onlinestore.controller;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import ru.gb.onlinestore.model.Category;
 import ru.gb.onlinestore.model.Manufacturer;
 import ru.gb.onlinestore.service.ManufacturerService;
 
+import java.util.List;
+import java.util.NoSuchElementException;
+@CrossOrigin
 @RestController
 @RequestMapping("/manufacturer")
 public class ManufacturerController {
@@ -35,6 +39,17 @@ public class ManufacturerController {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.status(HttpStatus.OK).body(manufacturer);
+    }
+
+    @GetMapping("/all")
+    public ResponseEntity<List<Manufacturer>> findAll(){
+        List<Manufacturer> manufacturerList = null;
+        try {
+            manufacturerList = manufacturerService.getAllManufacturer();
+        } catch (NoSuchElementException e){
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(manufacturerList);
     }
 
     @DeleteMapping("/{id}")

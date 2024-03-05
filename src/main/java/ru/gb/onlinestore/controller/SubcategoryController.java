@@ -9,6 +9,7 @@ import ru.gb.onlinestore.service.SubcategoryService;
 import java.util.List;
 import java.util.NoSuchElementException;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/subcategory")
 public class SubcategoryController {

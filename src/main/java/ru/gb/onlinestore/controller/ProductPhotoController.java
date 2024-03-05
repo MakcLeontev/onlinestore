@@ -8,6 +8,7 @@ import ru.gb.onlinestore.service.ProductPhotoService;
 
 import java.util.NoSuchElementException;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/photo")
 public class ProductPhotoController {

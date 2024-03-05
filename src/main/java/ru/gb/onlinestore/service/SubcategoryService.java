@@ -16,8 +16,13 @@ public class SubcategoryService {
     private final SubcategoryRepository subcategoryRepository;
     public SubcategoryService(SubcategoryRepository subcategoryRepository) {
         this.subcategoryRepository = subcategoryRepository;
+        saveToDB();
     }
 
+    public void saveToDB(){
+        subcategoryRepository.save(new Subcategory("Светильники и комплектующие"));
+
+    }
     public Subcategory saveSubcategory(String subCategoryName) throws IllegalArgumentException {
         if (subcategoryRepository.findByTitle(subCategoryName).isEmpty()){
             Subcategory subcategory = new Subcategory(subCategoryName);

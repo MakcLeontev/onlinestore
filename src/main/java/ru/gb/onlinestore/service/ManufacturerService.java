@@ -6,6 +6,8 @@ import ru.gb.onlinestore.model.Category;
 import ru.gb.onlinestore.model.Manufacturer;
 import ru.gb.onlinestore.repository.ManufacturerRepository;
 
+import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Slf4j
@@ -15,6 +17,12 @@ public class ManufacturerService {
 
     public ManufacturerService(ManufacturerRepository manufacturerRepository) {
         this.manufacturerRepository = manufacturerRepository;
+        saveToDb();
+    }
+
+    public void saveToDb(){
+        manufacturerRepository.save(new Manufacturer("Rexant"));
+        manufacturerRepository.save(new Manufacturer("Tango"));
     }
     public Manufacturer saveManufacturer(String title){
         Optional<Manufacturer> manufacturer1 = manufacturerRepository.findByTitle(title);
@@ -33,6 +41,16 @@ public class ManufacturerService {
             throw new IllegalAccessException("производителя с таким id не существует");
         }
         return manufacturer.get();
+    }
+
+    public List<Manufacturer> getAllManufacturer(){
+        List<Manufacturer> manufacturerList = manufacturerRepository.findAll().stream().toList();
+        if (manufacturerList.isEmpty()){
+            throw new NoSuchElementException("категории не найдены");
+        } else {
+            log.info("список категорий: " + manufacturerList);
+            return manufacturerList;
+        }
     }
 
     public void deleteManufacturerById(Long id) throws IllegalAccessException {

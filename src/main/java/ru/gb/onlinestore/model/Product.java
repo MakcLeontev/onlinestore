@@ -32,7 +32,7 @@ public class Product {
     @Column(name = "price")
     private BigDecimal price;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinTable(name = "product_subcategories",
             joinColumns = @JoinColumn(name = "product_id"),
             inverseJoinColumns = @JoinColumn(name = "subcategory_id"))

@@ -20,6 +20,9 @@ import ru.gb.onlinestore.security.jwt.AuthTokenFilter;
 @Configuration
 @EnableMethodSecurity
 public class WebSecurityConfig {
+    private static final String[] AUTH_WHITELIST = {
+            "/product/**", "/photo/**","/category/**","/subcategory/**","/manufacturer/**"
+    };
     @Autowired
     UserDetailsService userDetailsService;
     @Autowired
@@ -57,8 +60,13 @@ public class WebSecurityConfig {
                 .authorizeHttpRequests(auth ->
                         auth.requestMatchers("/api/auth/**").permitAll()
                                 .requestMatchers("/api/test/**").permitAll()
-                                .requestMatchers("/product/**").permitAll()
-                                .requestMatchers("/photo/**").permitAll()
+                                .requestMatchers(AUTH_WHITELIST).permitAll()
+
+//                                .requestMatchers("/product/**").permitAll()
+//                                .requestMatchers("/photo/**").permitAll()
+//                                .requestMatchers("/category/**").permitAll()
+//                                .requestMatchers("/subcategory/**").hasAuthority("ROLE_USER")
+//                                .requestMatchers("/manufacturer/**").hasAuthority("ROLE_USER")
                                 .anyRequest().authenticated()
                 );
 

@@ -23,12 +23,16 @@ public class Subcategory{
     @Schema(name = "id")
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinTable(name = "categorys_subcategories",
-            joinColumns = @JoinColumn(name = "category_id"),
-            inverseJoinColumns = @JoinColumn(name = "subcategory_id"))
+            joinColumns = @JoinColumn(name = "subcategory_id"),
+            inverseJoinColumns = @JoinColumn(name = "category_id"))
     private Category category;
 
+//    @ManyToOne(fetch = FetchType.EAGER)
+//    @JoinTable(name = "product_subcategories",
+//            joinColumns = @JoinColumn(name = "product_id"),
+//            inverseJoinColumns = @JoinColumn(name = "subcategory_id"))
     @OneToMany(mappedBy = "subcategory")
    // @JoinColumn(name = "product_id")
     private List<Product> products;

@@ -61,6 +61,7 @@ public class WebSecurityConfig {
                         auth.requestMatchers("/api/auth/**").permitAll()
                                 .requestMatchers("/api/test/**").permitAll()
                                 .requestMatchers(AUTH_WHITELIST).permitAll()
+                                .requestMatchers("/subcategory/all").permitAll()
 
 //                                .requestMatchers("/product/**").permitAll()
 //                                .requestMatchers("/photo/**").permitAll()

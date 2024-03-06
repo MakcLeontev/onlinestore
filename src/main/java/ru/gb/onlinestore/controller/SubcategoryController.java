@@ -23,7 +23,7 @@ public class SubcategoryController {
     public ResponseEntity<Subcategory> saveSubcategory(@RequestBody Subcategory subcategory){
         Subcategory subcategory1 = null;
         try {
-            subcategory1 = subcategoryService.saveSubcategory(subcategory.getTitle());
+            subcategory1 = subcategoryService.saveSubcategory(subcategory);
         } catch (IllegalArgumentException e) {
            return ResponseEntity.badRequest().build();
         }
@@ -31,10 +31,10 @@ public class SubcategoryController {
     }
 
     @GetMapping("/all")
-    public ResponseEntity<List<Subcategory>> findAllSubcategorys(){
+    public ResponseEntity<List<Subcategory>> findAllSubcategory(){
         List<Subcategory> subcategoryList = null;
         try {
-            subcategoryList = subcategoryService.findAllSubcategorys();
+            subcategoryList = subcategoryService.findAllSubcategory();
         } catch (NoSuchElementException e){
             return ResponseEntity.notFound().build();
         }

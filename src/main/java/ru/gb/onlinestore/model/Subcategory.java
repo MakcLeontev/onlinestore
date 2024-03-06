@@ -19,14 +19,15 @@ import java.util.Map;
 public class Subcategory{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "subcategory_id")
-    @Schema(name = "id")
+//    @Column(name = "subcategory_id")
+//    @Schema(name = "id")
     private Long id;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinTable(name = "categorys_subcategories",
-            joinColumns = @JoinColumn(name = "subcategory_id"),
-            inverseJoinColumns = @JoinColumn(name = "category_id"))
+//    @JoinTable(name = "categorys_subcategories",
+//            joinColumns = @JoinColumn(name = "subcategory_id"),
+//            inverseJoinColumns = @JoinColumn(name = "category_id"))
+    @JoinColumn(name = "category_id")
     private Category category;
 
 //    @ManyToOne(fetch = FetchType.EAGER)
@@ -56,12 +57,19 @@ public class Subcategory{
         return products;
     }
 
+//    @JsonIgnore
+//    public Category getCategory() {
+//        return category;
+//    }
+
+
     public Subcategory(String title, Category category) {
         this.category = category;
         this.title = title;
     }
 
-    public Subcategory(String title) {
-        this.title = title;
-    }
+
+//    public Subcategory(String title) {
+//        this.title = title;
+//    }
 }

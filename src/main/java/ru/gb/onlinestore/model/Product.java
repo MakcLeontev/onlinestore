@@ -33,9 +33,10 @@ public class Product {
     private BigDecimal price;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinTable(name = "product_subcategories",
-            joinColumns = @JoinColumn(name = "product_id"),
-            inverseJoinColumns = @JoinColumn(name = "subcategory_id"))
+    @JoinColumn(name = "subcategory_id")
+//    @JoinTable(name = "product_subcategories",
+//            joinColumns = @JoinColumn(name = "product_id"),
+//            inverseJoinColumns = @JoinColumn(name = "subcategory_id"))
     private Subcategory subcategory;
 
     @Column(name = "creation_date_time")
@@ -48,8 +49,8 @@ public class Product {
     private Long inStock;
 
 //    @Column(name = "manufacturer_id")
-    @ManyToOne()
-//    @JoinColumn(name = "manufacturer_id")
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "manufacturer_id")
     private Manufacturer manufacturer;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "product")
@@ -76,6 +77,15 @@ public class Product {
         return productPhotos;
     }
 
+    @JsonIgnore
+    public Subcategory getSubcategory() {
+        return subcategory;
+    }
+
+    @JsonIgnore
+    public Manufacturer getManufacturer() {
+        return manufacturer;
+    }
     //    @Column(name = "seo_metatags")
 //    private List<String> seoMetatags;
 

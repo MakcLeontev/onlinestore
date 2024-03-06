@@ -2,7 +2,6 @@ package ru.gb.onlinestore.service;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import ru.gb.onlinestore.model.Category;
 import ru.gb.onlinestore.model.Subcategory;
 import ru.gb.onlinestore.repository.SubcategoryRepository;
 
@@ -16,24 +15,23 @@ public class SubcategoryService {
     private final SubcategoryRepository subcategoryRepository;
     public SubcategoryService(SubcategoryRepository subcategoryRepository) {
         this.subcategoryRepository = subcategoryRepository;
-        saveToDB();
+//        saveToDB();
     }
 
-    public void saveToDB(){
-        subcategoryRepository.save(new Subcategory("Светильники и комплектующие"));
-
-    }
-    public Subcategory saveSubcategory(String subCategoryName) throws IllegalArgumentException {
-        if (subcategoryRepository.findByTitle(subCategoryName).isEmpty()){
-            Subcategory subcategory = new Subcategory(subCategoryName);
-            subcategoryRepository.save(subcategory);
+//    public void saveToDB(){
+//        subcategoryRepository.save(new Subcategory("Светильники и комплектующие"));
+//
+//    }
+    public Subcategory saveSubcategory(Subcategory subcategory) throws IllegalArgumentException {
+        if (subcategoryRepository.findByTitle(subcategory.getTitle()).isEmpty()){
+            Subcategory subcategory1 = subcategoryRepository.save(subcategory);
             log.info("Категория сохранена");
-            return subcategory;
+            return subcategory1;
         }else {
             throw new IllegalArgumentException("категория с таким именем уже существует");
         }
     }
-    public List<Subcategory> findAllSubcategorys(){
+    public List<Subcategory> findAllSubcategory(){
         List<Subcategory> categoryList = subcategoryRepository.findAll().stream().toList();
         if (categoryList.isEmpty()){
             throw new NoSuchElementException("категории не найдены");

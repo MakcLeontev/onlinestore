@@ -15,13 +15,13 @@ public class Category {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "category_id")
+//    @Column(name = "category_id")
     private Long id;
 
     @Column(name = "category_title")
     private String title;
 
-    @OneToMany(mappedBy = "category")
+    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Subcategory> subcategories;
 
     @Column(name = "category_description")
@@ -35,10 +35,10 @@ public class Category {
 //    @Column(name = "seo_keywords")
 //    private List<String> seoKeywords;
 
-    public Category(Long id, String title) {
-        this.id = id;
-        this.title = title;
-    }
+//    public Category(Long id, String title) {
+//        this.id = id;
+//        this.title = title;
+//    }
 
     public Category(String title) {
         this.title = title;

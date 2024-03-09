@@ -68,7 +68,17 @@ public class Subcategory{
         this.title = title;
     }
 
-
+    @Override
+    public String toString() {
+        return "Subcategory{" +
+                "id=" + id +
+                ", category=" + category +
+                ", title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                ", subcategoryShow=" + subcategoryShow +
+                ", seoDescription='" + seoDescription + '\'' +
+                '}';
+    }
 //    public Subcategory(String title) {
 //        this.title = title;
 //    }

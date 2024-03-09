@@ -77,16 +77,30 @@ public class Product {
         return productPhotos;
     }
 
-    @JsonIgnore
-    public Subcategory getSubcategory() {
-        return subcategory;
-    }
+//    @JsonIgnore
+//    public Subcategory getSubcategory() {
+//        return subcategory;
+//    }
 
-    @JsonIgnore
-    public Manufacturer getManufacturer() {
-        return manufacturer;
-    }
-    //    @Column(name = "seo_metatags")
-//    private List<String> seoMetatags;
+//    @JsonIgnore
+//    public Manufacturer getManufacturer() {
+//        return manufacturer;
+//    }
+//    //    @Column(name = "seo_metatags")
+////    private List<String> seoMetatags;
 
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", price=" + price +
+                ", subcategory=" + subcategory +
+                ", creationDateTime=" + creationDateTime +
+                ", productShow=" + productShow +
+                ", inStock=" + inStock +
+                ", manufacturer=" + manufacturer +
+                '}';
+    }
 }

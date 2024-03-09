@@ -31,4 +31,12 @@ public class Manufacturer {
     public Manufacturer(String title) {
         this.title = title;
     }
+
+    @Override
+    public String toString() {
+        return "Manufacturer{" +
+                "id=" + id +
+                ", title='" + title +
+                '}';
+    }
 }

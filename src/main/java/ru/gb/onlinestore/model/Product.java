@@ -56,13 +56,16 @@ public class Product {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "product")
     List<ProductPhoto> productPhotos;
 
+    @Column(name = "photo_link")
+    private String photoLink;
+
     public Product(String title) {
         this.title = title;
         this.creationDateTime = LocalDateTime.now();
         this.productShow = true;
     }
 
-    public Product(String title, BigDecimal price,Subcategory subcategory, Long inStock, Manufacturer manufacturer) {
+    public Product(String title, BigDecimal price,Subcategory subcategory, Long inStock, Manufacturer manufacturer, String photoLink) {
         this.title = title;
         this.price = price;
         this.subcategory = subcategory;
@@ -70,6 +73,7 @@ public class Product {
         this.productShow = true;
         this.inStock = inStock;
         this.manufacturer = manufacturer;
+        this.photoLink = photoLink;
     }
 
     @JsonIgnore
@@ -101,6 +105,7 @@ public class Product {
                 ", productShow=" + productShow +
                 ", inStock=" + inStock +
                 ", manufacturer=" + manufacturer +
+                ", photoLink=" + photoLink +
                 '}';
     }
 }

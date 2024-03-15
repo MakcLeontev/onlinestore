@@ -1,5 +1,6 @@
 package ru.gb.onlinestore.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -23,6 +24,29 @@ public class OrderProducts {
     @Column(name = "product_quantity")
     private Long productQuantity;
 
-    @ManyToMany(mappedBy = "orderProducts")
-    private List<Order> orders;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "order_id")
+    private Order order;
+
+//    @JsonIgnore
+//    public List<Order> getOrders() {
+//        return orders;
+//    }
+
+
+    @Override
+    public String toString() {
+        return "OrderProducts{" +
+                "id=" + id +
+                ", product=" + product +
+                ", productQuantity=" + productQuantity +
+                ", order=" + order +
+                '}';
+    }
+
+    public OrderProducts(Product product, Long productQuantity) {
+        this.product = product;
+        this.productQuantity = productQuantity;
+    }
+
 }

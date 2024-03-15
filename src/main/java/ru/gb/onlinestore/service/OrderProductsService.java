@@ -19,9 +19,10 @@ public class OrderProductsService {
         this.orderProductsRepository = orderProductsRepository;
     }
 
-    public OrderProducts saveOrderProducts()  {
-       // orderProductsRepository.save();
-       return null;
+    public OrderProducts saveOrderProducts(OrderProducts orderProducts)  {
+        OrderProducts saveOrderProducts = null;
+        saveOrderProducts = orderProductsRepository.save(orderProducts);
+       return saveOrderProducts;
     }
     public List<OrderProducts> findAllOrderProducts(){
         List<OrderProducts> orderProducts = orderProductsRepository.findAll().stream().toList();

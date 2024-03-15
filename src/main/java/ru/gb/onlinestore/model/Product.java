@@ -59,6 +59,7 @@ public class Product {
     @Column(name = "photo_link")
     private String photoLink;
 
+
     public Product(String title) {
         this.title = title;
         this.creationDateTime = LocalDateTime.now();

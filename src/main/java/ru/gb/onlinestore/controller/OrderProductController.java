@@ -10,6 +10,7 @@ import ru.gb.onlinestore.service.OrderProductsService;
 import java.util.List;
 import java.util.NoSuchElementException;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/orderproduct")
 public class OrderProductController {
@@ -17,6 +18,11 @@ public class OrderProductController {
 
     public OrderProductController(OrderProductsService orderProductsService) {
         this.orderProductsService = orderProductsService;
+    }
+
+    @PostMapping
+    public ResponseEntity<OrderProducts> saveOrderProduct(@RequestBody OrderProducts orderProducts){
+        return ResponseEntity.status(HttpStatus.CREATED).body(orderProductsService.saveOrderProducts(orderProducts));
     }
 
     @GetMapping("/all")

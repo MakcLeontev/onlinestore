@@ -21,7 +21,7 @@ import ru.gb.onlinestore.security.jwt.AuthTokenFilter;
 @EnableMethodSecurity
 public class WebSecurityConfig {
     private static final String[] AUTH_WHITELIST = {
-            "/product/**", "/photo/**","/category/**","/subcategory/**","/manufacturer/**"
+            "/product/**", "/photo/**","/category/**","/subcategory/**","/manufacturer/**","/order**", "/orderproduct"
     };
     @Autowired
     UserDetailsService userDetailsService;

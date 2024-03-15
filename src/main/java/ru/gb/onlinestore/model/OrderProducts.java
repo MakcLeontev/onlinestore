@@ -17,7 +17,7 @@ public class OrderProducts {
     @Column(name = "record_id")
     private Long id;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "product_id")
     private Product product;
 
@@ -49,4 +49,9 @@ public class OrderProducts {
         this.productQuantity = productQuantity;
     }
 
+    public OrderProducts(Product product, Long productQuantity, Order order) {
+        this.product = product;
+        this.productQuantity = productQuantity;
+        this.order = order;
+    }
 }

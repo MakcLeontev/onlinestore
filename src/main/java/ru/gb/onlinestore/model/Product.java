@@ -34,9 +34,6 @@ public class Product {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "subcategory_id")
-//    @JoinTable(name = "product_subcategories",
-//            joinColumns = @JoinColumn(name = "product_id"),
-//            inverseJoinColumns = @JoinColumn(name = "subcategory_id"))
     private Subcategory subcategory;
 
     @Column(name = "creation_date_time")
@@ -53,8 +50,6 @@ public class Product {
     @JoinColumn(name = "manufacturer_id")
     private Manufacturer manufacturer;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "product")
-    List<ProductPhoto> productPhotos;
 
     @Column(name = "photo_link")
     private String photoLink;
@@ -76,25 +71,6 @@ public class Product {
         this.manufacturer = manufacturer;
         this.photoLink = photoLink;
     }
-
-    @JsonIgnore
-    public List<ProductPhoto> getProductPhotos() {
-        return productPhotos;
-    }
-
-//    @JsonIgnore
-//    public Subcategory getSubcategory() {
-//        return subcategory;
-//    }
-
-//    @JsonIgnore
-//    public Manufacturer getManufacturer() {
-//        return manufacturer;
-//    }
-//    //    @Column(name = "seo_metatags")
-////    private List<String> seoMetatags;
-
-
     @Override
     public String toString() {
         return "Product{" +

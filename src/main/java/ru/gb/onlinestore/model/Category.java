@@ -30,16 +30,6 @@ public class Category {
     @Column(name = "category_show")
     private Boolean categoryShow;
 
-    @Column(name = "seo_description")
-    private String seoDescription;
-//    @Column(name = "seo_keywords")
-//    private List<String> seoKeywords;
-
-//    public Category(Long id, String title) {
-//        this.id = id;
-//        this.title = title;
-//    }
-
     public Category(String title) {
         this.title = title;
     }
@@ -48,9 +38,6 @@ public class Category {
     public List<Subcategory> getSubcategories() {
         return subcategories;
     }
-
-
-
 
     @Override
     public String toString() {

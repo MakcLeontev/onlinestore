@@ -47,17 +47,10 @@ public class User {
     @OneToMany(mappedBy = "user")
     List<Order> orders;
 
-
-
-
     @JsonIgnore
     public List<Order> getOrders() {
         return orders;
     }
-
-
-
-
 
     public User(String username, String email, String password) {
         this.username = username;

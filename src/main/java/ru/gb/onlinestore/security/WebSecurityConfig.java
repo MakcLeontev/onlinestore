@@ -21,7 +21,7 @@ import ru.gb.onlinestore.security.jwt.AuthTokenFilter;
 @EnableMethodSecurity
 public class WebSecurityConfig {
     private static final String[] AUTH_WHITELIST = {
-            "/product/**", "/photo/**","/category/**","/subcategory/**","/manufacturer/**","/order/**", "/orderproduct/**"
+            "/product/all","/category/all","/subcategory/all", "manufacturer/all"
     };
     @Autowired
     UserDetailsService userDetailsService;
@@ -61,13 +61,11 @@ public class WebSecurityConfig {
                         auth.requestMatchers("/api/auth/**").permitAll()
                                 .requestMatchers("/api/test/**").permitAll()
                                 .requestMatchers(AUTH_WHITELIST).permitAll()
-                                .requestMatchers("/subcategory/all").permitAll()
-
-//                                .requestMatchers("/product/**").permitAll()
-//                                .requestMatchers("/photo/**").permitAll()
-//                                .requestMatchers("/category/**").permitAll()
-//                                .requestMatchers("/subcategory/**").hasAuthority("ROLE_USER")
-//                                .requestMatchers("/manufacturer/**").hasAuthority("ROLE_USER")
+                                .requestMatchers("/manufacturer").hasAuthority("ROLE_ADMIN")
+                                .requestMatchers("category").hasAuthority("ROLE_ADMIN")
+                                .requestMatchers("subcategory").hasAuthority("ROLE_ADMIN")
+                                .requestMatchers("/order").authenticated()
+                                .requestMatchers("/orderproduct").authenticated()
                                 .anyRequest().authenticated()
                 );
 

@@ -6,5 +6,7 @@
 
 3. используется БД **PostgreSQL** запускается вместе с сервером файл compose.yaml
 
-4. Фронтенд реализован на **VUE.JS**. 
+4. Фронтенд реализован на **VUE.JS**.
+   https://github.com/MakcLeontev/onlineStoreVueFrontend.git
+   запуск описан в readme.md
 

@@ -17,23 +17,6 @@ public class CategoryService {
 
     public CategoryService(CategoryRepository categoryRepository) {
         this.categoryRepository = categoryRepository;
-        saveToDB();
-    }
-
-    public void saveToDB(){
-        categoryRepository.save(new Category("Светильники и комплектующие"));
-        categoryRepository.save(new Category("Источники света"));
-        categoryRepository.save(new Category("Кабельно-проводниковая продукция"));
-        categoryRepository.save(new Category("Системы для прокладки кабеля и монтажа"));
-        categoryRepository.save(new Category("Низковольтное оборудование"));
-        categoryRepository.save(new Category("Счетчики"));
-        categoryRepository.save(new Category("Шкафы, боксы и принадлежности"));
-        categoryRepository.save(new Category("Электроустановочные изделия"));
-        categoryRepository.save(new Category("Удлинители, катушки"));
-        categoryRepository.save(new Category("Элементы питания"));
-        categoryRepository.save(new Category("Телекоммуникационный кабель и комплектующие"));
-        categoryRepository.save(new Category("Инструменты и расходные материалы"));
-
     }
 
     public Category saveCategory(String categoryName) throws IllegalAccessException {

@@ -1,0 +1,9 @@
+services:
+  database:
+    image: postgres:15.2
+    environment:
+      - POSTGRES_DB=store
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=mypass
+    ports:
+      - 5432:5432

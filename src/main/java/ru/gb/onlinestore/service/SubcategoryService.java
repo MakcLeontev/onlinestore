@@ -2,7 +2,9 @@ package ru.gb.onlinestore.service;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import ru.gb.onlinestore.model.Category;
 import ru.gb.onlinestore.model.Subcategory;
+import ru.gb.onlinestore.repository.CategoryRepository;
 import ru.gb.onlinestore.repository.SubcategoryRepository;
 
 import java.util.List;
@@ -13,15 +15,11 @@ import java.util.Optional;
 @Service
 public class SubcategoryService {
     private final SubcategoryRepository subcategoryRepository;
+
     public SubcategoryService(SubcategoryRepository subcategoryRepository) {
         this.subcategoryRepository = subcategoryRepository;
-//        saveToDB();
     }
 
-//    public void saveToDB(){
-//        subcategoryRepository.save(new Subcategory("Светильники и комплектующие"));
-//
-//    }
     public Subcategory saveSubcategory(Subcategory subcategory) throws IllegalArgumentException {
         if (subcategoryRepository.findByTitle(subcategory.getTitle()).isEmpty()){
             Subcategory subcategory1 = subcategoryRepository.save(subcategory);

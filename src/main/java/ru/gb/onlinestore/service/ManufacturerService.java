@@ -17,13 +17,8 @@ public class ManufacturerService {
 
     public ManufacturerService(ManufacturerRepository manufacturerRepository) {
         this.manufacturerRepository = manufacturerRepository;
-        saveToDb();
     }
 
-    public void saveToDb(){
-        manufacturerRepository.save(new Manufacturer("Rexant"));
-        manufacturerRepository.save(new Manufacturer("Tango"));
-    }
     public Manufacturer saveManufacturer(String title){
         Optional<Manufacturer> manufacturer1 = manufacturerRepository.findByTitle(title);
         if (manufacturer1.isEmpty()){
